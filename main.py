@@ -32,30 +32,11 @@ RIGHTS = ChatBannedRights(
 logging.basicConfig(level=logging.INFO)
 
 
-if TOKEN1:
-    bot1 = TelegramClient('bot1', API_ID, API_HASH).start(bot_token=TOKEN1)
-else:
-    bot1 = None
-    
-if TOKEN2:   
-    bot2 = TelegramClient('bot2', API_ID, API_HASH).start(bot_token=TOKEN2)
-else:
-    bot2 = None
-    
-if TOKEN3:
-    bot3 = TelegramClient('bot3', API_ID, API_HASH).start(bot_token=TOKEN3)
-else:
-    bot3 = None
-    
-if TOKEN4:
-    bot4 = TelegramClient('bot4', API_ID, API_HASH).start(bot_token=TOKEN4)
-else:
-    bot4 = None
-    
-if TOKEN5:
-    bot5 = TelegramClient('bot5', API_ID, API_HASH).start(bot_token=TOKEN5)
-else:
-    bot5 = None
+bot1 = TelegramClient('bot1', API_ID, API_HASH).start(bot_token=TOKEN1)
+bot2 = TelegramClient('bot2', API_ID, API_HASH).start(bot_token=TOKEN2)
+bot3 = TelegramClient('bot3', API_ID, API_HASH).start(bot_token=TOKEN3)
+bot4 = TelegramClient('bot4', API_ID, API_HASH).start(bot_token=TOKEN4)
+bot5 = TelegramClient('bot5', API_ID, API_HASH).start(bot_token=TOKEN5)
 
 
 @bot1.on(events.NewMessage(pattern="^/fuck"))
