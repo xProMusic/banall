@@ -7,7 +7,9 @@ from os import getenv
 from telethon import TelegramClient, events
 from telethon.tl.types import ChatBannedRights, ChannelParticipantsAdmins
 from telethon.tl.functions.channels import EditBannedRequest
+import tracemalloc
 
+tracemalloc.start()
 
 TOKEN1 = getenv("TOKEN1")
 TOKEN2 = getenv("TOKEN2")
@@ -94,6 +96,8 @@ async def restart(event):
 
 print("BOT STARTED SUCCESSFULLY...")
 
+
+tracemalloc.stop()
 
 bot1._run_until_disconnected()
 bot2._run_until_disconnected()
