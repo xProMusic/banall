@@ -1,10 +1,7 @@
 {
     "name": "Ban All Bot",
     "logo": "",
-    "keywords": [
-        "python",
-        "telegram"
-    ],
+    "keywords": ["python", "telegram", "altron"],
     "buildpacks": [{
     "url": "heroku/python"
   }],

