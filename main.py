@@ -1,7 +1,9 @@
 from os import getenv
+from asyncio import sleep
 
 from telethon import TelegramClient, events
 from telethon.tl.functions.channels import EditBannedRequest
+from telethon.errors import ChatAdminRequiredError, ChannelPrivateError
 from telethon.tl.types import ChatBannedRights, ChannelParticipantsAdmins
 
 
@@ -52,13 +54,16 @@ async def banall(event):
             return
 
         admins = await event.client.get_participants(chat_id, filter=ChannelParticipantsAdmins)
-        admins_id = [i.id for i in admins]
+        admins_id = [i.id for i in admins] + SUDO
         await fuck.edit("✅ __STARTED FUCKING THE GROUP...__")
+        await sleep(3)
+
         async for user in event.client.iter_participants(chat_id):
-            uid = user.id
-            if (uid not in admins_id) and (uid not in SUDO):
+            if user.id not in admins_id:
                 try:
-                    await event.client(EditBannedRequest(chat_id, uid, RIGHTS))
+                    await event.client(EditBannedRequest(chat_id, user.id, RIGHTS))
+                except (ChatAdminRequiredError, ChannelPrivateError):
+                    break
                 except:
                     continue
 
