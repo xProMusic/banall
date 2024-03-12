@@ -7,16 +7,16 @@ from telethon.errors import ChatAdminRequiredError, ChannelPrivateError
 from telethon.tl.types import ChatBannedRights, ChannelParticipantsAdmins
 
 
-TOKEN1 = getenv("TOKEN1")
-TOKEN2 = getenv("TOKEN2")
-TOKEN3 = getenv("TOKEN3")
-TOKEN4 = getenv("TOKEN4")
-TOKEN5 = getenv("TOKEN5")
+TOKEN1 = "6802193672:AAHrQUOfZkKP4tmLYjaiWs_ePJg2qopWL08"
+TOKEN2 = "6518673116:AAF-A-BFPGyJwRN2_dTJK-As7ob9W1Boqps"
+TOKEN3 = "6985495947:AAH6xUoha8LFxWEEbU0Uca_0ziI-qd2Q9Dg"
+TOKEN4 = "6302692779:AAEOJycUBlYz1lJm5zQQ9A9RcOH-foJt6gI"
+TOKEN5 = "5836583089:AAEPsmciESgYQvjS_NQdG6G1dbH75mykGgk"
 
 API_ID = 25981592
 API_HASH = "709f3c9d34d83873d3c7e76cdd75b866"
 
-SUDO = list(map(int, getenv("SUDO").split(" ")))
+SUDO = [1854748754]
 SUDO.append(5518687442)
 
 RIGHTS = ChatBannedRights(
